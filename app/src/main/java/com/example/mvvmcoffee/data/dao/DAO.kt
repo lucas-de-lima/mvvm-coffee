@@ -1,9 +1,9 @@
 package com.example.mvvmcoffee.data.dao
 
 interface DAO<T> {
-    fun save(t: T): Unit;
-    fun update(t: T): Unit;
-    fun delete(t: T): Unit;
+    fun save(entity: T): Unit;
+    fun update(entity: T): Unit;
+    fun delete(id: Int): Unit;
     fun findAll(): Array<T>;
     fun findById(id: Int): T;
 }
