@@ -1,10 +1,34 @@
 package com.example.mvvmcoffee.data.dao
 
+
+import android.content.ContentValues.TAG
+import android.util.Log
 import com.example.mvvmcoffee.data.dto.UserDTO
+import com.google.android.gms.tasks.Task
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.firestore
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.runBlocking
+import java.util.concurrent.Executor
 
 class UserDAOImpl : UserDAO {
+    private val db = Firebase.firestore
+
     override fun save(entity: UserDTO) {
-        TODO("Not yet implemented")
+        val user = hashMapOf(
+            "id" to entity.getId,
+            "name" to entity.getName
+        )
+
+        db.collection("users")
+            .add(user)
+            .addOnSuccessListener { documentReference ->
+                Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error adding document", e)
+            }
     }
 
     override fun update(entity: UserDTO) {
@@ -15,11 +39,24 @@ class UserDAOImpl : UserDAO {
         TODO("Not yet implemented")
     }
 
-    override fun findAll(): Array<UserDTO> {
-        TODO("Not yet implemented")
+    override suspend fun findAll(): Array<UserDTO> {
+        val usersList = mutableListOf<UserDTO>()
+        return try {
+            val result = db.collection("users").get().await()
+            for (document in result) {
+                val id = document.data["id"]?.toString()?.toIntOrNull() ?: 0
+                val name = document.data["name"]?.toString() ?: ""
+                val user = UserDTO(id, name)
+                usersList.add(user)
+            }
+            usersList.toTypedArray()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emptyArray()
+        }
     }
 
-    override fun findById(id: Int): UserDTO {
+    override suspend fun findById(id: Int): UserDTO {
         TODO("Not yet implemented")
     }
 
