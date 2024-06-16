@@ -1,4 +1,4 @@
-package com.example.mvvmcoffee.data.dao
+package com.example.mvvmcoffee.data.database
 
 
 import android.content.ContentValues.TAG
