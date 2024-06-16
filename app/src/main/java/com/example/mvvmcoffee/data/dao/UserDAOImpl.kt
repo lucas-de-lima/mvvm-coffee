@@ -4,13 +4,9 @@ package com.example.mvvmcoffee.data.dao
 import android.content.ContentValues.TAG
 import android.util.Log
 import com.example.mvvmcoffee.data.dto.UserDTO
-import com.google.android.gms.tasks.Task
 import com.google.firebase.Firebase
-import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.runBlocking
-import java.util.concurrent.Executor
 
 class UserDAOImpl : UserDAO {
     private val db = Firebase.firestore
