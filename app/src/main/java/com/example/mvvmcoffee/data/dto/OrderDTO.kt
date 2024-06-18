@@ -5,37 +5,60 @@ import com.example.mvvmcoffee.enums.PaymentStatusEnum
 import java.util.Date
 
 data class OrderDTO(
-    private val id: Int,
-    private val customerName: String,
-    private val orderItems: List<OrderItemDTO>,
-    private val totalAmount: Double,
-    private val paymentStatus: PaymentStatusEnum,
-    private val specialInstructions: String,
-    private val orderDate: Date,
-    private val orderStatus: OrderStatusEnum
+    private var _id: String? = null,
+    private var _customerName: String? = null,
+    private var _orderItems: List<OrderItemDTO>? = null,
+    private var _totalAmount: Double? = null,
+    private var _paymentStatus: PaymentStatusEnum? = null,
+    private var _specialInstructions: String? = null,
+    private var _orderDate: Date? = null,
+    private var _orderStatus: OrderStatusEnum? = null
 ) {
-    val getId: Int
-        get() = id
+    var id: String?
+        get() = _id
+        set(value) {
+            _id = value
+        }
 
-    val getCustomerName: String
-        get() = customerName
+    var customerName: String?
+        get() = _customerName
+        set(value) {
+            _customerName = value
+        }
 
-    val getOrderItems: List<OrderItemDTO>
-        get() = orderItems
+    var orderItems: List<OrderItemDTO>?
+        get() = _orderItems
+        set(value) {
+            _orderItems = value
+        }
 
-    val getTotalAmount: Double
-        get() = totalAmount
+    var totalAmount: Double?
+        get() = _totalAmount
+        set(value) {
+            _totalAmount = value
+        }
 
-    val getPaymentStatus: PaymentStatusEnum
-        get() = paymentStatus
+    var paymentStatus: PaymentStatusEnum?
+        get() = _paymentStatus
+        set(value) {
+            _paymentStatus = value
+        }
 
-    val getSpecialInstructions: String
-        get() = specialInstructions
+    var specialInstructions: String?
+        get() = _specialInstructions
+        set(value) {
+            _specialInstructions = value
+        }
 
-    val getOrderDate: Date
-        get() = orderDate
+    var orderDate: Date?
+        get() = _orderDate
+        set(value) {
+            _orderDate = value
+        }
 
-    val getOrderStatus: OrderStatusEnum
-        get() = orderStatus
-
+    var orderStatus: OrderStatusEnum?
+        get() = _orderStatus
+        set(value) {
+            _orderStatus = value
+        }
 }
