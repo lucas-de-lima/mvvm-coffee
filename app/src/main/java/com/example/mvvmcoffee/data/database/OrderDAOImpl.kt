@@ -21,7 +21,15 @@ class OrderDAOImpl : OrderDAO {
     }
 
     override fun update(entity: OrderDTO) {
-        TODO("Not yet implemented")
+        db.collection("orders")
+            .document(entity.getId.toString())
+            .set(entity, SetOptions.merge())
+            .addOnSuccessListener { documentReference ->
+                Log.d(TAG, "Document updated with ID: ${entity.getId}")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error updating document: $e")
+            }
     }
 
     override fun delete(id: Int) {
