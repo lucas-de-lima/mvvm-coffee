@@ -63,25 +63,18 @@ class OrderDAOImpl : OrderDAO {
         }
     }
 
-    override suspend fun findById(id: Int): OrderDTO {
+    override suspend fun findById(id: String): Result<OrderDTO> {
         return try {
-            db.collection("orders")
-                .document(id.toString())
+            val orderDTO = db.collection("orders")
+                .document(id)
                 .get()
                 .await()
-                .toObject(OrderDTO::class.java)!!
+                .toObject(OrderDTO::class.java)
+                ?: return Result.failure(NoSuchElementException("Order with id $id not found"))
+            Result.success(orderDTO)
         } catch (e: Exception) {
             Log.w(TAG, "Error getting document", e)
-            OrderDTO(
-                id = 0,
-                customerName = "",
-                orderItems = emptyList(),
-                totalAmount = 0.0,
-                paymentStatus = PaymentStatusEnum.CANCELED,
-                specialInstructions = "",
-                orderDate = Date(0),
-                orderStatus = OrderStatusEnum.CANCELED
-            )
+            Result.failure(e)
         }
     }
 }
