@@ -57,6 +57,24 @@ class OrderDAOImpl : OrderDAO {
     }
 
     override suspend fun findById(id: Int): OrderDTO {
-        TODO("Not yet implemented")
+        return try {
+            db.collection("orders")
+                .document(id.toString())
+                .get()
+                .await()
+                .toObject(OrderDTO::class.java)!!
+        } catch (e: Exception) {
+            Log.w(TAG, "Error getting document", e)
+            OrderDTO(
+                id = 0,
+                customerName = "",
+                orderItems = emptyList(),
+                totalAmount = 0.0,
+                paymentStatus = PaymentStatusEnum.CANCELED,
+                specialInstructions = "",
+                orderDate = Date(0),
+                orderStatus = OrderStatusEnum.CANCELED
+            )
+        }
     }
 }
