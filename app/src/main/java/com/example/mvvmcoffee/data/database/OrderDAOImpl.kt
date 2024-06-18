@@ -43,7 +43,17 @@ class OrderDAOImpl : OrderDAO {
     }
 
     override suspend fun findAll(): Array<OrderDTO> {
-        TODO("Not yet implemented")
+        return try {
+            db.collection("orders")
+                .get()
+                .await()
+                .map { document ->
+                    document.toObject(OrderDTO::class.java)
+                }.toTypedArray()
+        } catch (e: Exception) {
+            Log.w(TAG, "Error getting documents", e)
+            emptyArray()
+        }
     }
 
     override suspend fun findById(id: Int): OrderDTO {
