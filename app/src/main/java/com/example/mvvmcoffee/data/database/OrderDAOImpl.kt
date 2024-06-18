@@ -3,13 +3,10 @@ package com.example.mvvmcoffee.data.database
 import android.content.ContentValues.TAG
 import android.util.Log
 import com.example.mvvmcoffee.data.dto.OrderDTO
-import com.example.mvvmcoffee.enums.OrderStatusEnum
-import com.example.mvvmcoffee.enums.PaymentStatusEnum
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.tasks.await
-import java.util.Date
 
 
 class OrderDAOImpl : OrderDAO {
@@ -17,10 +14,10 @@ class OrderDAOImpl : OrderDAO {
 
     override fun save(entity: OrderDTO) {
         db.collection("orders")
-            .document(entity.getId.toString())
+            .document(entity.id!!)
             .set(entity)
             .addOnSuccessListener { documentReference ->
-                Log.d(TAG, "Document added with ID: ${entity.getId}")
+                Log.d(TAG, "Document added with ID: ${entity.id}")
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error adding document: $e")
@@ -29,10 +26,10 @@ class OrderDAOImpl : OrderDAO {
 
     override fun update(entity: OrderDTO) {
         db.collection("orders")
-            .document(entity.getId.toString())
+            .document(entity.id!!)
             .set(entity, SetOptions.merge())
             .addOnSuccessListener { documentReference ->
-                Log.d(TAG, "Document updated with ID: ${entity.getId}")
+                Log.d(TAG, "Document updated with ID: ${entity.id}")
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error updating document: $e")
