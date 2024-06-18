@@ -3,6 +3,7 @@ package com.example.mvvmcoffee.data.database
 
 import android.content.ContentValues.TAG
 import android.util.Log
+import com.example.mvvmcoffee.data.dto.OrderDTO
 import com.example.mvvmcoffee.data.dto.UserDTO
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
@@ -52,8 +53,7 @@ class UserDAOImpl : UserDAO {
         }
     }
 
-    override suspend fun findById(id: Int): UserDTO {
+    override suspend fun findById(id: String): Result<UserDTO> {
         TODO("Not yet implemented")
     }
-
 }
