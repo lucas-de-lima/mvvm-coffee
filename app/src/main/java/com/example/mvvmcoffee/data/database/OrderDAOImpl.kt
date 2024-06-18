@@ -33,7 +33,13 @@ class OrderDAOImpl : OrderDAO {
     }
 
     override fun delete(id: Int) {
-        TODO("Not yet implemented")
+        try {
+            db.collection("orders")
+                .document(id.toString())
+                .delete()
+        } catch (e: Exception) {
+            Log.w(TAG, "Error deleting document", e)
+        }
     }
 
     override suspend fun findAll(): Array<OrderDTO> {
