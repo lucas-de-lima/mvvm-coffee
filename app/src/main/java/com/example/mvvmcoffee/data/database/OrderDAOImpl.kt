@@ -3,20 +3,27 @@ package com.example.mvvmcoffee.data.database
 import android.content.ContentValues.TAG
 import android.util.Log
 import com.example.mvvmcoffee.data.dto.OrderDTO
+import com.example.mvvmcoffee.enums.OrderStatusEnum
+import com.example.mvvmcoffee.enums.PaymentStatusEnum
 import com.google.firebase.Firebase
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.firestore
+import kotlinx.coroutines.tasks.await
+import java.util.Date
+
 
 class OrderDAOImpl : OrderDAO {
     private val db = Firebase.firestore
 
-    override fun save(order: OrderDTO) {
+    override fun save(entity: OrderDTO) {
         db.collection("orders")
-            .add(order)
+            .document(entity.getId.toString())
+            .set(entity)
             .addOnSuccessListener { documentReference ->
-                Log.d(TAG,"Document added with ID: ${documentReference.id}")
+                Log.d(TAG, "Document added with ID: ${entity.getId}")
             }
             .addOnFailureListener { e ->
-                Log.w(TAG,"Error adding document: $e")
+                Log.w(TAG, "Error adding document: $e")
             }
     }
 
