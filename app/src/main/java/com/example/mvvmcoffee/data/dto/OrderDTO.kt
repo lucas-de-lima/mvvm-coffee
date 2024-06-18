@@ -4,7 +4,7 @@ import com.example.mvvmcoffee.enums.OrderStatusEnum
 import com.example.mvvmcoffee.enums.PaymentStatusEnum
 import java.util.Date
 
-class OrderDTO(
+data class OrderDTO(
     private val id: Int,
     private val customerName: String,
     private val orderItems: List<OrderItemDTO>,
