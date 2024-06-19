@@ -21,7 +21,15 @@ class IngredientDAOImpl : IngredientDAO {
     }
 
     override fun update(entity: IngredientDTO) {
-        TODO("Not yet implemented")
+        db.collection("ingredients")
+            .document(entity.id!!)
+            .set(entity)
+            .addOnSuccessListener { documentReference ->
+                Log.d("IngredientDAOImpl", "Document updated with ID: ${entity.id}")
+            }
+            .addOnFailureListener { e ->
+                Log.w("IngredientDAOImpl", "Error updating document: $e")
+            }
     }
 
     override fun delete(id: Int) {
