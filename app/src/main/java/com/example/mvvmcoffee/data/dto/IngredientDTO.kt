@@ -1,9 +1,9 @@
 package com.example.mvvmcoffee.data.dto
 
 data class IngredientDTO(
-    private val id: Long,
-    private val name: String,
-    private val quantity: Int, // Quantidade em estoque
-    private val unit: String // Unidade de medida, como "grams", "ml", etc.
+    private val id: Long? = null,
+    private val name: String? = null,
+    private val quantity: Int? = null, // Quantidade em estoque
+    private val unit: String? = null // Unidade de medida, como "grams", "ml", etc.
 ) {
 }
