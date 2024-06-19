@@ -32,8 +32,10 @@ class IngredientDAOImpl : IngredientDAO {
             }
     }
 
-    override fun delete(id: Int) {
-        TODO("Not yet implemented")
+    override fun delete(id: String) {
+        db.collection("ingredients")
+            .document(id)
+            .delete()
     }
 
     override suspend fun findAll(): Array<IngredientDTO> {
