@@ -32,25 +32,26 @@ class UserDAOImpl : UserDAO {
         TODO("Not yet implemented")
     }
 
-    override fun delete(id: Int) {
+    override fun delete(id: String) {
         TODO("Not yet implemented")
     }
 
-    override suspend fun findAll(): Array<UserDTO> {
+    override suspend fun findAll(): Result<List<UserDTO>> {
         val usersList = mutableListOf<UserDTO>()
-        return try {
-            val result = db.collection("users").get().await()
-            for (document in result) {
-                val id = document.data["id"]?.toString()?.toIntOrNull() ?: 0
-                val name = document.data["name"]?.toString() ?: ""
-                val user = UserDTO(id, name)
-                usersList.add(user)
-            }
-            usersList.toTypedArray()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            emptyArray()
-        }
+//        return try {
+//            val result = db.collection("users").get().await()
+//            for (document in result) {
+//                val id = document.data["id"]?.toString()?.toIntOrNull() ?: 0
+//                val name = document.data["name"]?.toString() ?: ""
+//                val user = UserDTO(id, name)
+//                usersList.add(user)
+//            }
+//            usersList.toTypedArray()
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//            emptyArray()
+//        }
+        TODO("Not yet implemented")
     }
 
     override suspend fun findById(id: String): Result<UserDTO> {
