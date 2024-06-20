@@ -46,17 +46,19 @@ class OrderDAOImpl : OrderDAO {
         }
     }
 
-    override suspend fun findAll(): Array<OrderDTO> {
+    override suspend fun findAll(): Result<List<OrderDTO>> {
         return try {
-            db.collection("orders")
+           val orderResults = db.collection("orders")
                 .get()
                 .await()
                 .map { document ->
                     document.toObject(OrderDTO::class.java)
-                }.toTypedArray()
+                    return Result.failure(NoSuchElementException("Order with id ${document.id} not found"))
+                }
+            Result.success(orderResults)
         } catch (e: Exception) {
             Log.w(TAG, "Error getting documents", e)
-            emptyArray()
+            Result.failure(e)
         }
     }
 
