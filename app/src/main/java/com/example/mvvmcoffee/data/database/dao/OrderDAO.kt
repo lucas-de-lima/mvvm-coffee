@@ -1,4 +1,4 @@
-package com.example.mvvmcoffee.data.database
+package com.example.mvvmcoffee.data.database.dao
 
 import com.example.mvvmcoffee.data.dto.OrderDTO
 

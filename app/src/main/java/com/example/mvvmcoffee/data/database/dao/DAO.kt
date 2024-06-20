@@ -1,4 +1,4 @@
-package com.example.mvvmcoffee.data.database
+package com.example.mvvmcoffee.data.database.dao
 
 interface DAO<T> {
     fun save(entity: T): Unit;

@@ -3,11 +3,10 @@ package com.example.mvvmcoffee.data.database
 
 import android.content.ContentValues.TAG
 import android.util.Log
-import com.example.mvvmcoffee.data.dto.OrderDTO
+import com.example.mvvmcoffee.data.database.dao.UserDAO
 import com.example.mvvmcoffee.data.dto.UserDTO
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
-import kotlinx.coroutines.tasks.await
 
 class UserDAOImpl : UserDAO {
     private val db = Firebase.firestore

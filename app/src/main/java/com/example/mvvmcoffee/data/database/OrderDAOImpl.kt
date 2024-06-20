@@ -2,6 +2,7 @@ package com.example.mvvmcoffee.data.database
 
 import android.content.ContentValues.TAG
 import android.util.Log
+import com.example.mvvmcoffee.data.database.dao.OrderDAO
 import com.example.mvvmcoffee.data.dto.OrderDTO
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.SetOptions

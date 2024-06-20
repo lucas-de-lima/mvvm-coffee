@@ -1,6 +1,7 @@
 package com.example.mvvmcoffee.data.database
 
 import android.util.Log
+import com.example.mvvmcoffee.data.database.dao.ProductDAO
 import com.example.mvvmcoffee.data.dto.ProductDTO
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.SetOptions
