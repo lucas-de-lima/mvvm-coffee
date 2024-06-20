@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.mvvmcoffee.data.dto.IngredientDTO
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
+import kotlinx.coroutines.tasks.await
 
 class IngredientDAOImpl : IngredientDAO {
     private val db = Firebase.firestore
@@ -38,8 +39,20 @@ class IngredientDAOImpl : IngredientDAO {
             .delete()
     }
 
-    override suspend fun findAll(): Array<IngredientDTO> {
-        TODO("Not yet implemented")
+    override suspend fun findAll(): Result<List<IngredientDTO>> {
+        return try {
+            val ingredientsResult = db.collection("ingredients")
+                .get()
+                .await().documents
+                .map { document ->
+                    document.toObject(IngredientDTO::class.java)
+                        ?: return Result.failure(NoSuchElementException("Order with id ${document.id} not found"))
+                }
+            Result.success(ingredientsResult)
+        } catch (e: Exception) {
+            Log.w("IngredientDAOImpl", "Error getting documents", e)
+            Result.failure(e)
+        }
     }
 
     override suspend fun findById(id: String): Result<IngredientDTO> {
