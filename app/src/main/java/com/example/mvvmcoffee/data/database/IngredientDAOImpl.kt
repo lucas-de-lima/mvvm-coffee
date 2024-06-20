@@ -56,6 +56,17 @@ class IngredientDAOImpl : IngredientDAO {
     }
 
     override suspend fun findById(id: String): Result<IngredientDTO> {
-        TODO("Not yet implemented")
+        return try {
+            val ingredientDTO = db.collection("ingredients")
+                .document(id)
+                .get()
+                .await()
+                .toObject(IngredientDTO::class.java)
+                ?: return Result.failure(NoSuchElementException("Order with id $id not found"))
+            Result.success(ingredientDTO)
+        } catch (e: Exception) {
+            Log.w("IngredientDAOImpl", "Error getting document", e)
+            Result.failure(e)
+        }
     }
 }
