@@ -1,6 +1,6 @@
 package com.example.mvvmcoffee.data.dto
 
-class UserDto(
+class UserDTO(
     private val id: Int,
     private val name: String
 ) {
