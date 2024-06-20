@@ -36,7 +36,7 @@ class OrderDAOImpl : OrderDAO {
             }
     }
 
-    override fun delete(id: Int) {
+    override fun delete(id: String) {
         try {
             db.collection("orders")
                 .document(id.toString())
